@@ -4,7 +4,10 @@ function loadPreview(){
 
     let image = openImage(file.files[0]);
     image.onload = function(){ drawOnCanvas(canva, image); }
+    let stepTwo = document.getElementById("stepTwo");
+    stepTwo.style.display = 'block';
 }
+
 function shrink(){
     let newX = document.getElementById("newX");
     let newY = document.getElementById("newY");
@@ -33,4 +36,16 @@ function shrink(){
         }
     }
     octx.putImageData(imageData, 0, 0);
+}
+
+function sizeChange(e){
+    let newX = document.getElementById("newX");
+    let newY = document.getElementById("newY");
+    let scale = document.getElementById("newScale");
+    if(scale == e.target){
+        console.log(e.target.value);
+    }
+    else{
+        console.log("hey");
+    }
 }
