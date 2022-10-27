@@ -9,6 +9,9 @@ function openImage(file){
 }
 
 function drawOnCanvas(canva, image){
+    canva.width = image.width;
+    canva.height = image.height;
+
     const ctx = canva.getContext('2d');
     ctx.drawImage(image, 0 ,0);
 }

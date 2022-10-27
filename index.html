@@ -21,16 +21,19 @@
         <!-- scale slider -->
         <input type="range"> 
         <!-- scale number -->
-        <input type="number">
+        <input type="number" id="newScale" value="0.5">
+
+        <!-- o -->
+        <input type="number" id="o" value="0.5">
 
         <!-- pixel size -->
-        <input type="number">
-        <input type="number">
+        <input type="number" id="newX" value="22">
+        <input type="number" id="newY" value="22">
 
         <button onclick="shrink()">Shrink!</button>
 
         <!-- empty output image preview -->
-        <img id="outPrev">
+        <canvas id="outPrev"></canvas>
 
     </body>
 </html>
