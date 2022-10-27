@@ -38,14 +38,20 @@ function shrink(){
     octx.putImageData(imageData, 0, 0);
 }
 
+function scaleChange(size){
+    const scale = document.getElementById("newScale");
+    newX.value = Math.floor(size[0] * scale.value);
+    newY.value = Math.floor(size[1] * scale.value);
+}
+
 function sizeChange(e){
-    let newX = document.getElementById("newX");
-    let newY = document.getElementById("newY");
-    let scale = document.getElementById("newScale");
+    const newX = document.getElementById("newX");
+    const newY = document.getElementById("newY");
+    const scale = document.getElementById("newScale");
     if(scale == e.target){
-        console.log(e.target.value);
+        scaleChange
     }
     else{
-        console.log("hey");
+        scaleChange([newX.value, newY.value]);
     }
 }
