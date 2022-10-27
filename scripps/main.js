@@ -15,24 +15,24 @@ function shrink(){
     const o = document.getElementById("o");
 
     const canva = document.getElementById("inPrev");
-    const ctx = canva.getContext('2d');
-
+    // How to Fix?
+    let ctx = canva.getContext('2d', { willReadFrequently: true });
+    console.log(ctx.getContextAttributes());
     const outCanva = document.getElementById("outPrev");
     outCanva.width = newX.value;
     outCanva.height = newY.value;
     let octx = outCanva.getContext('2d');
     let imageData = octx.createImageData(newX.value, newY.value);
     const boxSize = Math.ceil(1 / scale.value);
-
-    for (let i = 0; i < outCanva.height; i++){
-        for (let j = 0; j < outCanva.width; j++){
+    for (let i = 0; i < newY.value; i++){
+        for (let j = 0; j < newX.value; j++){
             const pos = [j * boxSize, i * boxSize];
-            const center = [pos[0] + Math.floor(boxSize/2), pos[1] + Math.floor(boxSize/2)];
+            const center = [pos[0] + boxSize/2, pos[1] + boxSize/2];
             const newColor = compress(ctx, pos, center, boxSize, o.value);
             for (let k = 0; k < 3; k++){
-                imageData.data[(i * outCanva.width * 4) + (j * 4) + k] = newColor[k];
+                imageData.data[(i * newX.value * 4) + (j * 4) + k] = newColor[k];
             }
-            imageData.data[(i * outCanva.width * 4) + (j * 4) + 3] = 255;
+            imageData.data[(i * newX.value * 4) + (j * 4) + 3] = 255;
         }
     }
     octx.putImageData(imageData, 0, 0);
