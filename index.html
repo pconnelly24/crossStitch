@@ -12,11 +12,12 @@
         <script type="text/javascript" src="scripps/pythonUtilities.js"></script>
         <script type="text/javascript" src="scripps/normal.js"></script>
         
-
-        <!-- choose a file to open-->
-        <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
-        <!-- empty input image preview -->
-        <br><canvas id="inPrev"></canvas>
+        <span id="stepOne">
+            <!-- choose a file to open-->
+            <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
+            <!-- empty input image preview -->
+            <br><canvas id="inPrev"></canvas>
+        </span>
 
         <span id="stepTwo" style="display:none">
             <!-- scale slider -->
@@ -35,10 +36,16 @@
             <label>Y:</label>
             <input type="number" id="newY" min="0" step="1" oninput="sizeChange(event)">
 
+            <!-- submission button -->
             <button onclick="shrink()">Shrink!</button>
+        </span>
 
+        <span id="stepThree">
             <!-- empty output image preview -->
             <br><canvas id="outPrev"></canvas>
+            <canvas id="bigOutPrev"></canvas>
+            <!-- empty output cross stitch preview -->
+            <br><canvas id="crossPrev"></canvas>
         </span>
 
     </body>
