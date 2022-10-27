@@ -9,26 +9,26 @@ function loadPreview(){
 }
 
 function shrink(){
-    let newX = document.getElementById("newX");
-    let newY = document.getElementById("newY");
-    let scale = document.getElementById("newScale");
-    let o = document.getElementById("o");
+    const newX = document.getElementById("newX");
+    const newY = document.getElementById("newY");
+    const scale = document.getElementById("newScale");
+    const o = document.getElementById("o");
 
-    let canva = document.getElementById("inPrev");
-    let ctx = canva.getContext('2d');
+    const canva = document.getElementById("inPrev");
+    const ctx = canva.getContext('2d');
 
-    let outCanva = document.getElementById("outPrev");
+    const outCanva = document.getElementById("outPrev");
     outCanva.width = newX.value;
     outCanva.height = newY.value;
     let octx = outCanva.getContext('2d');
     let imageData = octx.createImageData(newX.value, newY.value);
-    let boxSize = Math.ceil(1 / scale.value);
+    const boxSize = Math.ceil(1 / scale.value);
 
     for (let i = 0; i < outCanva.height; i++){
         for (let j = 0; j < outCanva.width; j++){
-            let pos = [j * boxSize, i * boxSize];
-            let center = [pos[0] + Math.floor(boxSize/2), pos[1] + Math.floor(boxSize/2)];
-            let newColor = compress(ctx, pos, center, boxSize, o.value);
+            const pos = [j * boxSize, i * boxSize];
+            const center = [pos[0] + Math.floor(boxSize/2), pos[1] + Math.floor(boxSize/2)];
+            const newColor = compress(ctx, pos, center, boxSize, o.value);
             for (let k = 0; k < 3; k++){
                 imageData.data[(i * outCanva.width * 4) + (j * 4) + k] = newColor[k];
             }
@@ -48,10 +48,18 @@ function sizeChange(e){
     const newX = document.getElementById("newX");
     const newY = document.getElementById("newY");
     const scale = document.getElementById("newScale");
-    if(scale == e.target){
-        scaleChange
+    const slide = document.getElementById("newScaleSlide");
+    const canva = document.getElementById("inPrev");
+    if(slide == e.target){
+        scale.value = slide.value;
+        scaleChange([canva.width, canva.height]);
+    }
+    else if(scale == e.target){
+        scaleChange([canva.width, canva.height]);
     }
     else{
-        scaleChange([newX.value, newY.value]);
+        scale.value = newX.value / canva.width;
+        newY.value = Math.round(canva.height * scale.value);
     }
+    slide.value = scale.value;
 }
