@@ -27,7 +27,7 @@ function shrink(){
     const boxSize = 1 / scale.value;
     for (let i = 0; i < newY.value; i++){
         for (let j = 0; j < newX.value; j++){
-            const pos = [ Math.round(j * boxSize), Math.round(i * boxSize)];
+            const pos = [Math.round(j * boxSize), Math.round(i * boxSize)];
             const center = [pos[0] + boxSize/2, pos[1] + boxSize/2];
             const newColor = compress(ctx, pos, center, boxSize, o.value);
             for (let k = 0; k < 3; k++){
