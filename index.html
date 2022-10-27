@@ -5,12 +5,13 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+
+        <!-- load all of the scripts -->
         <script type="text/javascript" src="scripps/main.js"></script>
         <script type="text/javascript" src="scripps/javaScriptUtilities.js"></script>
         <script type="text/javascript" src="scripps/pythonUtilities.js"></script>
         <script type="text/javascript" src="scripps/normal.js"></script>
         
-
 
         <!-- choose a file to open-->
         <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
@@ -25,6 +26,8 @@
         <!-- pixel size -->
         <input type="number">
         <input type="number">
+
+        <button onclick="compress()">Compress</button>
 
         <!-- empty output image preview -->
         <img id="outPrev">
