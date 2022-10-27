@@ -16,7 +16,7 @@
         <!-- choose a file to open-->
         <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
         <!-- empty input image preview -->
-        <img id="inPrev">
+        <canvas id="inPrev"></canvas>
 
         <!-- scale slider -->
         <input type="range"> 
@@ -27,7 +27,7 @@
         <input type="number">
         <input type="number">
 
-        <button onclick="compress()">Compress</button>
+        <button onclick="shrink()">Shrink!</button>
 
         <!-- empty output image preview -->
         <img id="outPrev">

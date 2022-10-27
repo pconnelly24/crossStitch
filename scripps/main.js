@@ -1,10 +1,13 @@
 function loadPreview(){
-    const image = document.getElementById("inPrev");
+    const canva = document.getElementById("inPrev");
     const file = document.getElementById("inFile");
 
-    openImage(file.files[0], image);
+    let image = openImage(file.files[0]);
+    image.onload = function(){ drawOnCanvas(canva, image); }
 }
-
+function shrink(){
+    let canva = document.getElementById("inPrev");
+}
 function compress(){
-    
+
 }
