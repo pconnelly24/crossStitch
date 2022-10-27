@@ -57,9 +57,13 @@ function sizeChange(e){
     else if(scale == e.target){
         scaleChange([canva.width, canva.height]);
     }
-    else{
+    else if(newX == e.target){
         scale.value = newX.value / canva.width;
         newY.value = Math.round(canva.height * scale.value);
+    }
+    else{
+        scale.value = newY.value / canva.width;
+        newX.value = Math.round(canva.width * scale.value);
     }
     slide.value = scale.value;
 }
