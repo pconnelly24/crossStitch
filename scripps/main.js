@@ -16,8 +16,9 @@ function shrink(){
 
     const canva = document.getElementById("inPrev");
     // How to Fix?
-    let ctx = canva.getContext('2d', { willReadFrequently: true });
-    console.log(ctx.getContextAttributes());
+    const ctx = canva.getContext('2d', { willReadFrequently: true });
+    // console.log(ctx.getContextAttributes());
+
     const outCanva = document.getElementById("outPrev");
     outCanva.width = newX.value;
     outCanva.height = newY.value;
