@@ -1,8 +1,6 @@
-function openImage(file, image){
-    let reader = new FileReader();
-    reader.addEventListener("loadend",()=>{
-        image.src = reader.result;
-    }, false);
-    reader.readAsDataURL(file.files[0])
-}
 
+function loadPreview(){
+    const image = document.getElementById("inPrev");
+    const file = document.getElementById("inFile");
+    openImage(file, image);
+}

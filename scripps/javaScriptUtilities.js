@@ -5,4 +5,3 @@ function openImage(file, image){
     }, false);
     reader.readAsDataURL(file.files[0])
 }
-
