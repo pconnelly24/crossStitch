@@ -51,7 +51,7 @@ function grow(inCanva, outCanva, size){
 
     for (let i = 0; i < size[1]; i++){
         for (let j = 0; j < size[0]; j++){
-            const pos = [Math.round(j / boxSize), Math.round(i / boxSize)];
+            const pos = [Math.floor(j / boxSize), Math.floor(i / boxSize)];
             const pixel =  ctx.getImageData(pos[0], pos[1], 1, 1);
             const color = [pixel.data[0], pixel.data[1], pixel.data[2]]
             for (let k = 0; k < 3; k++){
