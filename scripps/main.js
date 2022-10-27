@@ -37,6 +37,30 @@ function shrink(){
         }
     }
     octx.putImageData(imageData, 0, 0);
+    const bigOutCanva = document.getElementById("bigOutPrev");
+    grow(outCanva, bigOutCanva, [canva.width, canva.height]);
+}
+
+function grow(inCanva, outCanva, size){
+    const ctx = inCanva.getContext('2d');
+    outCanva.width = size[0];
+    outCanva.height = size[1];
+    const octx = outCanva.getContext('2d');
+    let imageData = octx.createImageData(size[0], size[1]);
+    const boxSize = 1 / (inCanva.width / size[0])
+
+    for (let i = 0; i < size[1]; i++){
+        for (let j = 0; j < size[0]; j++){
+            const pos = [Math.round(j / boxSize), Math.round(i / boxSize)];
+            const pixel =  ctx.getImageData(pos[0], pos[1], 1, 1);
+            const color = [pixel.data[0], pixel.data[1], pixel.data[2]]
+            for (let k = 0; k < 3; k++){
+                imageData.data[(i * size[0] * 4) + (j * 4) + k] = color[k];
+            }
+            imageData.data[(i * size[0] * 4) + (j * 4) + 3] = 255;
+        }
+    }
+    octx.putImageData(imageData, 0, 0);
 }
 
 function scaleChange(size){
