@@ -3,5 +3,5 @@ function openImage(file, image){
     reader.addEventListener("loadend",()=>{
         image.src = reader.result;
     }, false);
-    reader.readAsDataURL(file.files[0])
+    reader.readAsDataURL(file)
 }
