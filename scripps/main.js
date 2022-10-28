@@ -30,10 +30,7 @@ function shrink(){
             const pos = [Math.floor(j * boxSize), Math.floor(i * boxSize)];
             const center = [pos[0] + boxSize/2, pos[1] + boxSize/2];
             const newColor = compress(ctx, pos, center, boxSize, o.value);
-            for (let k = 0; k < 3; k++){
-                imageData.data[(i * newX.value * 4) + (j * 4) + k] = newColor[k];
-            }
-            imageData.data[(i * newX.value * 4) + (j * 4) + 3] = 255;
+            setData(imageData, newColor, (i * newX.value * 4) + (j * 4));
         }
     }
     octx.putImageData(imageData, 0, 0);
@@ -52,12 +49,8 @@ function grow(inCanva, outCanva, size){
     for (let i = 0; i < size[1]; i++){
         for (let j = 0; j < size[0]; j++){
             const pos = [Math.floor(j / boxSize), Math.floor(i / boxSize)];
-            const pixel =  ctx.getImageData(pos[0], pos[1], 1, 1);
-            const color = [pixel.data[0], pixel.data[1], pixel.data[2]]
-            for (let k = 0; k < 3; k++){
-                imageData.data[(i * size[0] * 4) + (j * 4) + k] = color[k];
-            }
-            imageData.data[(i * size[0] * 4) + (j * 4) + 3] = 255;
+            const color = getData(ctx, pos);
+            setData(imageData, color, (i * size[0] * 4) + (j * 4));
         }
     }
     octx.putImageData(imageData, 0, 0);

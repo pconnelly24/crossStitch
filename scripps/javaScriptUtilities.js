@@ -15,3 +15,16 @@ function drawOnCanvas(canva, image){
     const ctx = canva.getContext('2d');
     ctx.drawImage(image, 0 ,0);
 }
+
+function getData(ctx, pos){
+    const pixel =  ctx.getImageData(pos[0], pos[1], 1, 1);
+    const color = [pixel.data[0], pixel.data[1], pixel.data[2]]
+    return color;
+}
+
+function setData(imageData, color, pos){
+    for (let i = 0; i < 3; i++){
+        imageData.data[pos + i] = color[i];
+    }
+    imageData.data[pos + 3] = 255;
+}

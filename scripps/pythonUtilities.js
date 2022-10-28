@@ -43,3 +43,97 @@ function compress(ctx, pos, center, size, o){
     }
     return outColor;
 }
+// Help
+function closeColor(posColors, inColor){
+    let bestColor = posColors[0];
+    let bestDist = distance(posColors[0], inColor);
+
+    for (let i = 0; i < posColors.length; i++){
+        const curDist = distance(posColors[i], inColor);
+        if(curDist < bestDist){
+            bestColor = posColors[i];
+            bestDist = curDist;
+        }
+    }
+    return bestColor;
+}
+
+function distance(color1, color2){
+    const r = (color1[0] + color2[0]) / 2;
+
+    let delta = [0, 0, 0];
+    for (let i = 0; i < 3; i++){
+        delta[i] = color1[i] - color2[i];
+    }
+    const offset = [2 + (r / 256), 4, 2 + ((255 - r) / 256)];
+
+    let dist = [0, 0, 0];
+    for (let i = 0; i < 3; i++){
+        dist[i] = offset[i] * math.pow(delta[i], 2);
+    }
+    return sum(dist);
+}
+
+function sum(arr){
+    let total = 0;
+    for (let i = 0; i < arr.length; i++){
+        total += arr[i];
+    }
+    return total;
+}
+// To fix 
+function replaceColor(ctx, imageData, size, newColor, oldColor){
+    for (let i = 0; i < size[0]; i++){
+        for (let j = 0; j < size[1]; j++){
+            const color = getData(ctx, [i, j]);
+            if(color == oldColor){
+                setData(imageData, newColor, (i * size[0] * 4) + (j * 4));
+            }
+        }
+    }
+}   
+
+function getColors(ctx, size){
+    let colors = [];
+    for (let i = 0; i < size[0]; i++){
+        for (let j = 0; j < size[1]; j++){
+            const curColor = getData(ctx, [i, j]);
+            if(curColor[3] > 0 && colors.includes(curColor)){
+                colors.push(curColor);
+            }
+        }
+    }
+
+    return colors;
+}
+function outColors(colorDir, idDir, outFile, colors){
+    // ids = []
+    // for color in colors:
+    //     colorIndex = colorDir.index((color[0], color[1], color[2]))
+    //     ids.append(idDir[colorIndex])
+    // changed = True
+    // while(changed):
+    //     changed = False
+    //     for i in range(len(ids)-1):
+    //         if(ids[i]>ids[i+1]):
+    //             holder = ids[i]
+    //             ids[i] = ids[i+1]
+    //             ids[i+1] = holder
+    //             changed = True
+    // for i in ids:
+    //     outFile.write(str(i)+"\n")
+}
+    
+function opacity(ctx, size, fade){
+    for (let i = 0; i < size[0]; i++){
+        for (let j = 0; j < size[1]; j++){
+            let curColor = getData(ctx, [i, j]);
+            for (let k = 0; k < 3; k++){
+                imageData.data[(i * size[0] * 4) + (j * 4) + k] = curColor[k];
+            }
+            imageData.data[(i * size[0] * 4) + (j * 4) + 3] = fade;
+        }
+    }
+
+    return image;
+}
