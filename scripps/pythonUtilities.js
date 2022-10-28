@@ -45,13 +45,13 @@ function compress(ctx, pos, center, size, o){
 }
 // Help
 function closeColor(posColors, inColor){
-    let bestColor = posColors[0];
-    let bestDist = distance(posColors[0], inColor);
+    let bestColor = posColors[0][1];
+    let bestDist = distance(posColors[0][1], inColor);
 
     for (let i = 0; i < posColors.length; i++){
-        const curDist = distance(posColors[i], inColor);
+        const curDist = distance(posColors[i][1], inColor);
         if(curDist < bestDist){
-            bestColor = posColors[i];
+            bestColor = posColors[i][1];
             bestDist = curDist;
         }
     }
@@ -69,7 +69,7 @@ function distance(color1, color2){
 
     let dist = [0, 0, 0];
     for (let i = 0; i < 3; i++){
-        dist[i] = offset[i] * math.pow(delta[i], 2);
+        dist[i] = offset[i] * Math.pow(delta[i], 2);
     }
     return sum(dist);
 }
@@ -98,7 +98,8 @@ function getColors(ctx, size){
     for (let i = 0; i < size[0]; i++){
         for (let j = 0; j < size[1]; j++){
             const curColor = getData(ctx, [i, j]);
-            if(curColor[3] > 0 && colors.includes(curColor)){
+            if(curColor[3] > 0 && !colors.includes(curColor)){
+                // console.log("hi");
                 colors.push(curColor);
             }
         }

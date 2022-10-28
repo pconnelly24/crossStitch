@@ -11,6 +11,7 @@
         <script type="text/javascript" src="scripps/javascriptUtilities.js"></script>
         <script type="text/javascript" src="scripps/pythonUtilities.js"></script>
         <script type="text/javascript" src="scripps/normal.js"></script>
+        <script type="text/javascript" src="scripps/DMC_Colors.js"></script>
         
         <span id="stepOne">
             <!-- choose a file to open-->
@@ -41,6 +42,9 @@
 
             <!-- submission button -->
             <button onclick="shrink()">Shrink!</button>
+
+            <!-- submission button -->
+            <button onclick="cross()">Cross!</button>
         </span>
 
         <span id="stepThree">
@@ -51,7 +55,10 @@
             <canvas id="bigOutPrev"></canvas>
 
             <!-- empty output cross stitch preview -->
-            <canvas id="crossPrev"></canvas>
+            <canvas id="crossPrev" style="display: none;"></canvas>
+
+            <!-- empty output cross stitch preview -->
+            <canvas id="bigCrossPrev"></canvas>
         </span>
 
     </body>

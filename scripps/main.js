@@ -38,22 +38,27 @@ function shrink(){
     grow(outCanva, bigOutCanva, [canva.width, canva.height]);
 }
 
-function grow(inCanva, outCanva, size){
-    const ctx = inCanva.getContext('2d');
-    outCanva.width = size[0];
-    outCanva.height = size[1];
-    const octx = outCanva.getContext('2d');
-    let imageData = octx.createImageData(size[0], size[1]);
-    const boxSize = 1 / (inCanva.width / size[0])
+function cross(){
+    const canva = document.getElementById("outPrev");
+    const ctx = canva.getContext('2d');
 
-    for (let i = 0; i < size[1]; i++){
-        for (let j = 0; j < size[0]; j++){
-            const pos = [Math.floor(j / boxSize), Math.floor(i / boxSize)];
-            const color = getData(ctx, pos);
-            setData(imageData, color, (i * size[0] * 4) + (j * 4));
-        }
+    const outCanva = document.getElementById("crossPrev");
+    outCanva.width = newX.value;
+    outCanva.height = newY.value;
+    let octx = outCanva.getContext('2d');
+
+    let imageData = octx.createImageData(canva.width, canva.height);
+    let imageColors = getColors(ctx, [canva.width, canva.height]);
+    console.log(imageColors);
+    for (let i = 0; i < imageColors.length; i++){
+        let newColor = closeColor(DMC, imageColors[i]);
+        replaceColor(octx, imageData, [canva.width, canva.height], newColor, imageColors[i]);
     }
+    console.log(imageData)
     octx.putImageData(imageData, 0, 0);
+    const bigOutCanva = document.getElementById("bigCrossPrev");
+    const bigCanva = document.getElementById("bigOutPrev");
+    grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
 }
 
 function scaleChange(size){

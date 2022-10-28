@@ -8,6 +8,14 @@ function openImage(file){
     return image;
 }
 
+function readText(path){
+    
+}
+
+function writeText(path, data){
+
+}
+
 function drawOnCanvas(canva, image){
     canva.width = image.width;
     canva.height = image.height;
@@ -18,7 +26,7 @@ function drawOnCanvas(canva, image){
 
 function getData(ctx, pos){
     const pixel =  ctx.getImageData(pos[0], pos[1], 1, 1);
-    const color = [pixel.data[0], pixel.data[1], pixel.data[2]]
+    const color = [pixel.data[0], pixel.data[1], pixel.data[2], pixel.data[3]]
     return color;
 }
 
@@ -27,4 +35,22 @@ function setData(imageData, color, pos){
         imageData.data[pos + i] = color[i];
     }
     imageData.data[pos + 3] = 255;
+}
+
+function grow(inCanva, outCanva, size){
+    const ctx = inCanva.getContext('2d');
+    outCanva.width = size[0];
+    outCanva.height = size[1];
+    const octx = outCanva.getContext('2d');
+    let imageData = octx.createImageData(size[0], size[1]);
+    const boxSize = 1 / (inCanva.width / size[0])
+
+    for (let i = 0; i < size[1]; i++){
+        for (let j = 0; j < size[0]; j++){
+            const pos = [Math.floor(j / boxSize), Math.floor(i / boxSize)];
+            const color = getData(ctx, pos);
+            setData(imageData, color, (i * size[0] * 4) + (j * 4));
+        }
+    }
+    octx.putImageData(imageData, 0, 0);
 }
