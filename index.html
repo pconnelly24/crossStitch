@@ -39,7 +39,7 @@
             <label>Y:</label>
             <input type="number" id="newY" min="0" step="1" oninput="sizeChange(event)">
 
-            <!-- submission button -->
+            <!-- shrink button -->
             <button onclick="shrink()">Shrink!</button>
         </span>
 
@@ -56,15 +56,16 @@
             <!-- empty output cross stitch preview -->
             <canvas id="bigCrossPrev"></canvas>
 
-            <!-- submission button -->
+            <!-- list button -->
             <button onclick="copyList()">List!</button>
         </span>
 
         <span id="stepFour">
-            <!-- Table -->
-            <table id="colorList">
+            <!-- copy button -->
+            <button onclick="justCopy()">Copy!</button>
 
-            </table>
+            <!-- table -->
+            <br><table id="colorList"></table>
         </span>
 
     </body>

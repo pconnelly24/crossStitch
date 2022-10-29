@@ -1,6 +1,7 @@
 const spreadOffset = 4;
 const spreadColumn = 'B';
 const squareSize = 20;
+let globalColorList = "";
 
 function startUp(){
     show("stepOne");
@@ -11,6 +12,11 @@ function show(inText){
     step.style.display = 'block';
 }
 
+function hide(inText){
+    let step = document.getElementById(inText);
+    step.style.display = 'none';
+}
+
 function loadPreview(){
     const canva = document.getElementById("inPrev");
     const file = document.getElementById("inFile");
@@ -18,6 +24,8 @@ function loadPreview(){
     let image = openImage(file.files[0]);
     image.onload = function(){ drawOnCanvas(canva, image); }
     show("stepTwo");
+    hide("stepThree");
+    hide("stepFour");
 }
 
 function shrink(){
@@ -78,25 +86,28 @@ function cross(){
     show("stepThree");
 }
 
+function justCopy(){
+    navigator.clipboard.writeText(globalColorList);
+}
+
 function copyList(){
     const canva = document.getElementById("crossPrev");
     const ctx = canva.getContext('2d');
     const imageColors = getColors(ctx, [canva.width, canva.height]);
-
-    let outText = "";
+    globalColorList = "";
     let colors = [];
 
     for (let i = 0; i < DMC.length; i++){
         for (let j = 0; j < imageColors.length; j++){
             if (comp(imageColors[j], DMC[i][1])){
-                outText += "=($" + spreadColumn + Number(spreadOffset + i) + ")";
+                globalColorList += "=($" + spreadColumn + Number(spreadOffset + i) + ")";
                 colors.push(DMC[i]);
             }
         }
-        outText += "\n";
+        globalColorList += "\n";
     }
 
-    navigator.clipboard.writeText(outText);
+    justCopy();
 
     const colorList = document.getElementById("colorList");
     while (colorList.childElementCount > 0){
