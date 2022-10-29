@@ -1,5 +1,6 @@
 const spreadOffset = 4;
 const spreadColumn = 'B';
+const squareSize = 20;
 
 function startUp(){
     show("stepOne");
@@ -83,14 +84,13 @@ function copyList(){
     const imageColors = getColors(ctx, [canva.width, canva.height]);
 
     let outText = "";
-    let ids = [];
-    // console.log(imageColors);
+    let colors = [];
+
     for (let i = 0; i < DMC.length; i++){
         for (let j = 0; j < imageColors.length; j++){
             if (comp(imageColors[j], DMC[i][1])){
-                // console.log(DMC[j][0]);
                 outText += "=($" + spreadColumn + Number(spreadOffset + i) + ")";
-                ids.push(DMC[i][0]);
+                colors.push(DMC[i]);
             }
         }
         outText += "\n";
@@ -99,7 +99,26 @@ function copyList(){
     navigator.clipboard.writeText(outText);
 
     const colorList = document.getElementById("colorList");
-    // colorList.
+    while (colorList.childElementCount > 0){
+        colorList.removeChild(colorList.firstChild)
+    }
+    for (let i = 0; i < colors.length; i++){
+        let row = document.createElement("tr");
+
+        let tableDataId = document.createElement("td");
+        tableDataId.innerHTML = colors[i][0]
+        row.appendChild(tableDataId);
+
+        let tableDataCanva = document.createElement("canvas");
+        tableDataCanva.width = squareSize;
+        tableDataCanva.height = squareSize;
+        let ctx = tableDataCanva.getContext('2d');
+        ctx.fillStyle = 'rgb('+colors[i][1][0]+','+colors[i][1][1]+','+colors[i][1][2]+')';
+        ctx.fillRect(0, 0, tableDataCanva.width, tableDataCanva.height);
+        row.appendChild(tableDataCanva);
+
+        colorList.appendChild(row);
+    }
 
     show("stepFour");
 }
