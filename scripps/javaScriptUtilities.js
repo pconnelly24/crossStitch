@@ -8,14 +8,6 @@ function openImage(file){
     return image;
 }
 
-function readText(path){
-    
-}
-
-function writeText(path, data){
-
-}
-
 function drawOnCanvas(canva, image, size){
     canva.width = image.width;
     canva.height = image.height;
