@@ -36,6 +36,9 @@ function shrink(){
     octx.putImageData(imageData, 0, 0);
     const bigOutCanva = document.getElementById("bigOutPrev");
     grow(outCanva, bigOutCanva, [canva.width, canva.height]);
+
+    // Perchance
+    cross();
 }
 
 function cross(){
@@ -49,12 +52,12 @@ function cross(){
 
     let imageData = octx.createImageData(canva.width, canva.height);
     let imageColors = getColors(ctx, [canva.width, canva.height]);
-    console.log(imageColors);
+
     for (let i = 0; i < imageColors.length; i++){
         let newColor = closeColor(DMC, imageColors[i]);
-        replaceColor(octx, imageData, [canva.width, canva.height], newColor, imageColors[i]);
+        replaceColor(ctx, imageData, [canva.width, canva.height], newColor, imageColors[i]);
     }
-    console.log(imageData)
+
     octx.putImageData(imageData, 0, 0);
     const bigOutCanva = document.getElementById("bigCrossPrev");
     const bigCanva = document.getElementById("bigOutPrev");

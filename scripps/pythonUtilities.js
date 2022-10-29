@@ -83,10 +83,11 @@ function sum(arr){
 }
 // To fix 
 function replaceColor(ctx, imageData, size, newColor, oldColor){
-    for (let i = 0; i < size[0]; i++){
-        for (let j = 0; j < size[1]; j++){
-            const color = getData(ctx, [i, j]);
-            if(color == oldColor){
+    for (let i = 0; i < size[1]; i++){
+        for (let j = 0; j < size[0]; j++){
+            let color = getData(ctx, [j, i]);
+
+            if(comp(color, oldColor)){
                 setData(imageData, newColor, (i * size[0] * 4) + (j * 4));
             }
         }
@@ -97,9 +98,10 @@ function getColors(ctx, size){
     let colors = [];
     for (let i = 0; i < size[0]; i++){
         for (let j = 0; j < size[1]; j++){
-            const curColor = getData(ctx, [i, j]);
-            if(curColor[3] > 0 && !colors.includes(curColor)){
-                // console.log("hi");
+            
+            let curColor = getData(ctx, [i, j]);
+
+            if(curColor[3] > 0 && !inside(colors, curColor)){
                 colors.push(curColor);
             }
         }

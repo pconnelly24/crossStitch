@@ -54,3 +54,27 @@ function grow(inCanva, outCanva, size){
     }
     octx.putImageData(imageData, 0, 0);
 }
+
+function inside(arr, element){
+    for (let i = 0; i < arr.length; i++){
+        let same = true;
+        for (let j = 0; j < 4; j++){
+            if(arr[i][j] != element[j]){
+                same = false;
+            }
+        }
+        if(same){
+            return true;
+        }
+    }
+    return false;
+}
+
+function comp(arr1, arr2){
+    for (let i = 0; i < arr1.length; i++){
+        if(arr1[i] != arr2[i]){
+            return false;
+        }
+    }
+    return true;
+}
