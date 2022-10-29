@@ -2,30 +2,36 @@ const spreadOffset = 4;
 const spreadColumn = 'B';
 const squareSize = 20;
 let globalColorList = "";
+const stepLevel = ["stepOne", "stepTwo", "stepThree", "stepFour"]
+const prevHeight = 200
 
 function startUp(){
-    show("stepOne");
+    showHide(1);
 }
 
-function show(inText){
-    let step = document.getElementById(inText);
-    step.style.display = 'block';
-}
-
-function hide(inText){
-    let step = document.getElementById(inText);
-    step.style.display = 'none';
+function showHide(level){
+    for (let i = 0; i < level; i++){
+        let step = document.getElementById(stepLevel[i]);
+        step.style.display = 'block';
+    }
+    for (let i = level; i < stepLevel.length; i++){
+        let step = document.getElementById(stepLevel[i]);
+        step.style.display = 'none';
+    }
 }
 
 function loadPreview(){
     const canva = document.getElementById("inPrev");
+    const realCanva = document.getElementById("inRealPrev");
     const file = document.getElementById("inFile");
 
     let image = openImage(file.files[0]);
-    image.onload = function(){ drawOnCanvas(canva, image); }
-    show("stepTwo");
-    hide("stepThree");
-    hide("stepFour");
+    image.onload = function(){ 
+        drawOnCanvas(canva, image); 
+        imageSetup(realCanva, image)
+    }
+
+    showHide(2);
 }
 
 function shrink(){
@@ -55,7 +61,8 @@ function shrink(){
     }
     octx.putImageData(imageData, 0, 0);
     const bigOutCanva = document.getElementById("bigOutPrev");
-    grow(outCanva, bigOutCanva, [canva.width, canva.height]);
+    const realCanva = document.getElementById("inRealPrev");
+    grow(outCanva, bigOutCanva, [realCanva.width, realCanva.height]);
 
     // Perchance
     cross();
@@ -83,7 +90,7 @@ function cross(){
     const bigCanva = document.getElementById("bigOutPrev");
     grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
 
-    show("stepThree");
+    showHide(3);
 }
 
 function justCopy(){
@@ -131,7 +138,7 @@ function copyList(){
         colorList.appendChild(row);
     }
 
-    show("stepFour");
+    showHide(4);
 }
 
 function scaleChange(size){
@@ -141,6 +148,7 @@ function scaleChange(size){
 }
 
 function sizeChange(e){
+    showHide(2);
     const newX = document.getElementById("newX");
     const newY = document.getElementById("newY");
     const scale = document.getElementById("newScale");
@@ -165,6 +173,8 @@ function sizeChange(e){
 }
 
 function oChange(e){
+    showHide(2);
+
     const o = document.getElementById("o");
     const slide = document.getElementById("oSlider");
     if (slide == e.target){

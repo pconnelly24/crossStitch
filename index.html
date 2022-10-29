@@ -17,10 +17,11 @@
             <!-- choose a file to open-->
             <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
             <!-- empty input image preview -->
-            <br><canvas id="inPrev"></canvas>
+            <br><canvas id="inPrev" style="display:none"></canvas>
+            <canvas id="inRealPrev"></canvas>
         </span>
 
-        <span id="stepTwo" style="display:none">
+        <span id="stepTwo">
             <!-- scale slider -->
             <input type="range" id="newScaleSlide" value="0.5" min="0" max="1" step="0.01" oninput="sizeChange(event)"> 
             <!-- scale number -->

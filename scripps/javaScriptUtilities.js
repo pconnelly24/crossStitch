@@ -16,12 +16,20 @@ function writeText(path, data){
 
 }
 
-function drawOnCanvas(canva, image){
+function drawOnCanvas(canva, image, size){
     canva.width = image.width;
     canva.height = image.height;
     scaleChange([image.width, image.height]);
     const ctx = canva.getContext('2d');
     ctx.drawImage(image, 0 ,0);
+}
+
+function imageSetup(canva, image){
+    const ratio = image.width / image.height
+    canva.height = prevHeight;
+    canva.width = prevHeight * ratio;
+    const ctx = canva.getContext('2d');
+    ctx.drawImage(image, 0 ,0, canva.width, canva.height);
 }
 
 function getData(ctx, pos){
