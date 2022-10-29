@@ -2,11 +2,14 @@ const spreadOffset = 4;
 const spreadColumn = 'B';
 const squareSize = 20;
 let globalColorList = "";
-const stepLevel = ["stepOne", "stepTwo", "stepThree", "stepFour"]
-const prevHeight = 200
+const stepLevel = ["stepOne", "stepTwo", "stepThree", "stepFour"];
+const pages = ["pageOne", "pageTwo"];
+const prevHeight = 200;
+let fileName = "";
 
 function startUp(){
     showHide(1);
+    document.getElementById("pageOne").style.display = 'block';
 }
 
 function showHide(level){
@@ -18,6 +21,15 @@ function showHide(level){
         let step = document.getElementById(stepLevel[i]);
         step.style.display = 'none';
     }
+}
+
+function pageChange(e){
+    for (let i = 0; i < pages.length; i++){
+        let page = document.getElementById(pages[i]);
+        page.style.display = 'none';
+    }
+    let page = document.getElementById(pages[e.target.value]);
+    page.style.display = 'block';
 }
 
 function loadPreview(){
@@ -91,6 +103,10 @@ function cross(){
     grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
 
     showHide(3);
+
+    let save = document.getElementById("saveButton");
+    save.setAttribute('download', "cross_" + fileName);
+    save.setAttribute('href', outCanva.toDataURL("image/png"))
 }
 
 function justCopy(){

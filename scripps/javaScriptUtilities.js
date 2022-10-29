@@ -5,6 +5,7 @@ function openImage(file){
         image.src = reader.result;
     }, false);
     reader.readAsDataURL(file);
+    fileName = file.name;
     return image;
 }
 
