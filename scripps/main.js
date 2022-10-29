@@ -1,3 +1,6 @@
+const spreadOffset = 4;
+const spreadColumn = 'B';
+
 function loadPreview(){
     const canva = document.getElementById("inPrev");
     const file = document.getElementById("inFile");
@@ -51,7 +54,7 @@ function cross(){
     let octx = outCanva.getContext('2d');
 
     let imageData = octx.createImageData(canva.width, canva.height);
-    let imageColors = getColors(ctx, [canva.width, canva.height]);
+    const imageColors = getColors(ctx, [canva.width, canva.height]);
 
     for (let i = 0; i < imageColors.length; i++){
         let newColor = closeColor(DMC, imageColors[i]);
@@ -62,6 +65,26 @@ function cross(){
     const bigOutCanva = document.getElementById("bigCrossPrev");
     const bigCanva = document.getElementById("bigOutPrev");
     grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
+}
+
+function copyList(){
+    const canva = document.getElementById("crossPrev");
+    const ctx = canva.getContext('2d');
+    const imageColors = getColors(ctx, [canva.width, canva.height]);
+
+    let outText = "";
+    // console.log(imageColors);
+    for (let i = 0; i < DMC.length; i++){
+        for (let j = 0; j < imageColors.length; j++){
+            if (comp(imageColors[j], DMC[i][1])){
+                // console.log(DMC[j][0]);
+                outText += "=($" + spreadColumn + Number(spreadOffset + i) + ")";
+            }
+        }
+        outText += "\n";
+    }
+
+    navigator.clipboard.writeText(outText);
 }
 
 function scaleChange(size){
