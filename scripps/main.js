@@ -1,14 +1,22 @@
 const spreadOffset = 4;
 const spreadColumn = 'B';
 
+function startUp(){
+    show("stepOne");
+}
+
+function show(inText){
+    let step = document.getElementById(inText);
+    step.style.display = 'block';
+}
+
 function loadPreview(){
     const canva = document.getElementById("inPrev");
     const file = document.getElementById("inFile");
 
     let image = openImage(file.files[0]);
     image.onload = function(){ drawOnCanvas(canva, image); }
-    let stepTwo = document.getElementById("stepTwo");
-    stepTwo.style.display = 'block';
+    show("stepTwo");
 }
 
 function shrink(){
@@ -65,6 +73,8 @@ function cross(){
     const bigOutCanva = document.getElementById("bigCrossPrev");
     const bigCanva = document.getElementById("bigOutPrev");
     grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
+
+    show("stepThree");
 }
 
 function copyList(){
@@ -73,18 +83,25 @@ function copyList(){
     const imageColors = getColors(ctx, [canva.width, canva.height]);
 
     let outText = "";
+    let ids = [];
     // console.log(imageColors);
     for (let i = 0; i < DMC.length; i++){
         for (let j = 0; j < imageColors.length; j++){
             if (comp(imageColors[j], DMC[i][1])){
                 // console.log(DMC[j][0]);
                 outText += "=($" + spreadColumn + Number(spreadOffset + i) + ")";
+                ids.push(DMC[i][0]);
             }
         }
         outText += "\n";
     }
 
     navigator.clipboard.writeText(outText);
+
+    const colorList = document.getElementById("colorList");
+    // colorList.
+
+    show("stepFour");
 }
 
 function scaleChange(size){
