@@ -32,6 +32,11 @@ function pageChange(e){
     page.style.display = 'block';
 }
 
+function saveImage(){
+    let button = document.getElementById("saveButton");
+    button.click();
+}
+
 function loadPreview(){
     const canva = document.getElementById("inPrev");
     const realCanva = document.getElementById("inRealPrev");
