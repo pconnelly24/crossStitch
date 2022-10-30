@@ -127,7 +127,8 @@ function justCopy(){
 function copyList(){
     const canva = document.getElementById("crossPrev");
     const ctx = canva.getContext('2d');
-    const imageColors = getColors(ctx, [canva.width, canva.height]);
+    const pixels = ctx.getImageData(0, 0, canva.width, canva.height)
+    const imageColors = getColors(pixels, [canva.width, canva.height]);
     globalColorList = "";
     let colors = [];
 
