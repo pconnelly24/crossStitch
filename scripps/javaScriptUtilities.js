@@ -46,10 +46,14 @@ function grow(inCanva, outCanva, size){
     let imageData = octx.createImageData(size[0], size[1]);
     const boxSize = 1 / (inCanva.width / size[0])
 
+    const pixels = ctx.getImageData(0, 0, inCanva.width, inCanva.height);
+
     for (let i = 0; i < size[1]; i++){
         for (let j = 0; j < size[0]; j++){
             const pos = [Math.floor(j / boxSize), Math.floor(i / boxSize)];
-            const color = getData(ctx, pos);
+            const toPos = (pos[0] * 4) + (pos[1] * inCanva.width * 4)
+            const color = [pixels.data[toPos], pixels.data[toPos + 1], pixels.data[toPos + 2], pixels.data[toPos + 3]]
+            // const color = getData(ctx, pos);
             setData(imageData, color, (i * size[0] * 4) + (j * 4));
         }
     }

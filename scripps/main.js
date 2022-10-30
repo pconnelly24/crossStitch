@@ -68,11 +68,14 @@ function shrink(){
     let octx = outCanva.getContext('2d');
     let imageData = octx.createImageData(newX.value, newY.value);
     const boxSize = 1 / scale.value;
+
+    const pixels = ctx.getImageData(0, 0, canva.width, canva.height);
+
     for (let i = 0; i < newY.value; i++){
         for (let j = 0; j < newX.value; j++){
             const pos = [Math.floor(j * boxSize), Math.floor(i * boxSize)];
             const center = [pos[0] + boxSize/2, pos[1] + boxSize/2];
-            const newColor = compress(ctx, pos, center, boxSize, o.value);
+            const newColor = compress(pixels, pos, center, boxSize, canva.width, o.value);
             setData(imageData, newColor, (i * newX.value * 4) + (j * 4));
         }
     }
@@ -95,7 +98,10 @@ function cross(){
     let octx = outCanva.getContext('2d');
 
     let imageData = octx.createImageData(canva.width, canva.height);
-    const imageColors = getColors(ctx, [canva.width, canva.height]);
+
+    const pixels = ctx.getImageData(0, 0, canva.width, canva.height)
+
+    const imageColors = getColors(pixels, [canva.width, canva.height]);
 
     for (let i = 0; i < imageColors.length; i++){
         let newColor = closeColor(DMC, imageColors[i]);
