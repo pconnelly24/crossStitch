@@ -3,7 +3,7 @@ const spreadColumn = 'B';
 const squareSize = 20;
 let globalColorList = "";
 const stepLevel = ["stepOne", "stepTwo", "stepThree", "stepFour"];
-const pages = ["pageOne", "pageTwo"];
+const pages = ["pageOne", "pageTwo", "pageThree", "pageFour"];
 const prevHeight = 200;
 let fileName = "";
 
@@ -14,12 +14,16 @@ function startUp(){
 
 function showHide(level){
     for (let i = 0; i < level; i++){
-        let step = document.getElementById(stepLevel[i]);
-        step.style.display = 'block';
+        let steps = document.getElementsByClassName(stepLevel[i]);
+        for (let j = 0; j < steps.length; j++){
+            steps[j].style.display = 'block';
+        }
     }
     for (let i = level; i < stepLevel.length; i++){
-        let step = document.getElementById(stepLevel[i]);
-        step.style.display = 'none';
+        let steps = document.getElementsByClassName(stepLevel[i]);
+        for (let j = 0; j < steps.length; j++){
+            steps[j].style.display = 'none';
+        }
     }
 }
 
@@ -84,8 +88,11 @@ function shrink(){
     const realCanva = document.getElementById("inRealPrev");
     grow(outCanva, bigOutCanva, [realCanva.width, realCanva.height]);
 
-    // Perchance
-    cross();
+    let save = document.getElementById("smallSaveButton");
+    save.setAttribute('download', "small_" + fileName);
+    save.setAttribute('href', outCanva.toDataURL("image/png"))
+
+    showHide(3);
 }
 
 function cross(){
@@ -113,11 +120,7 @@ function cross(){
     const bigCanva = document.getElementById("bigOutPrev");
     grow(outCanva, bigOutCanva, [bigCanva.width, bigCanva.height]);
 
-    showHide(3);
-
-    let save = document.getElementById("saveButton");
-    save.setAttribute('download', "cross_" + fileName);
-    save.setAttribute('href', outCanva.toDataURL("image/png"))
+    showHide(4);
 }
 
 function justCopy(){
@@ -200,15 +203,22 @@ function sizeChange(e){
     slide.value = scale.value;
 }
 
-function oChange(e){
-    showHide(2);
+function ezChange(e){
+    const eId = e.target.id;
+    let ezSlider = document.getElementById(eId+"Slider");
+    let eNum = document.getElementById(eId);
 
-    const o = document.getElementById("o");
-    const slide = document.getElementById("oSlider");
-    if (slide == e.target){
-        o.value = slide.value;
+    if(ezSlider == null){
+        ezSlider = document.getElementById(eId);
+        eNum = document.getElementById(eId.split("Slider")[0]);
+    }
+    
+    if (ezSlider == e.target){
+        eNum.value = ezSlider.value;
     }
     else {
-        slide.value = o.value;
+        ezSlider.value = eNum.value;
     }
+
+    showHide(parseInt(e.target.name));
 }

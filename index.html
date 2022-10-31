@@ -15,14 +15,20 @@
         
         <!-- navigation bar -->
         <nav>
-            <button value="0" onclick="pageChange(event)">Shinker</button>
-            <button value="1" onclick="pageChange(event)">Diagram</button>
+            <span class="stepThree">
+                <button value="0" onclick="pageChange(event)">Shinker</button>
+                <button value="1" onclick="pageChange(event)">Cross</button>
+                <button value="2" onclick="pageChange(event)">Lego</button>
+            </span>
+            <span class="stepFour">
+                <button value="3" onclick="pageChange(event)">Diagram</button>
+            </span>
         </nav>
 
         <br>
         
         <span id="pageOne">
-            <span id="stepOne">
+            <span class="stepOne">
                 <!-- choose a file to open-->
                 <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
                 <!-- empty input image preview -->
@@ -30,7 +36,7 @@
                 <canvas id="inRealPrev"></canvas>
             </span>
     
-            <span id="stepTwo">
+            <span class="stepTwo">
                 <!-- scale slider -->
                 <input type="range" id="newScaleSlide" value="0.5" min="0" max="1" step="0.01" oninput="sizeChange(event)"> 
                 <!-- scale number -->
@@ -38,10 +44,10 @@
                 <input type="number" id="newScale" value="0.5" min="0" max="1" step="0.01" oninput="sizeChange(event)">
     
                 <!-- o slider -->
-                <input type="range" id="oSlider" value="0.5" min="0" max="1" step="0.01" oninput="oChange(event)">
+                <input type="range" id="oSlider" value="0.5" min="0" max="1" step="0.01" oninput="ezChange(event)" name="2">
                 <!-- o -->
                 <label>o:</label>
-                <input type="number" id="o" value="0.5" min="0" max="1" step="0.01" oninput="oChange(event)">
+                <input type="number" id="o" value="0.5" min="0" max="1" step="0.01" oninput="ezChange(event)" name="2">
     
                 <!-- pixel size -->
                 <label>X:</label>
@@ -53,37 +59,52 @@
                 <button onclick="shrink()">Shrink!</button>
             </span>
     
-            <span id="stepThree">
+            <span class="stepThree">
                 <!-- actual output image | hidden -->
                 <br><canvas id="outPrev" style="display: none;"></canvas>
     
                 <!-- big output image preview -->
                 <canvas id="bigOutPrev"></canvas>
-    
-                <!-- empty output cross stitch preview -->
-                <canvas id="crossPrev" style="display: none;"></canvas>
-    
-                <!-- empty output cross stitch preview -->
-                <canvas id="bigCrossPrev"></canvas>
-    
-                <!-- list button -->
-                <button onclick="copyList()">List!</button>
 
                 <!-- save button -->
-                <a id="saveButton" style="display: none;">Save!</a>
+                <a id="smallSaveButton" style="display: none;">Save!</a>
                 <button onclick="saveImage()">Save!</button>
             </span>
-    
-            <span id="stepFour">
-                <!-- copy button -->
-                <button onclick="justCopy()">Copy!</button>
-    
-                <!-- table -->
-                <br><table id="colorList"></table>
-            </span>    
+
         </span>
 
         <span id="pageTwo">
+            <!-- complexity slider -->
+            <input type="range" id="complexSlider" value="50" min="0" max="100" step="1" oninput="ezChange(event)" name="3">
+            <!-- complexity -->
+            <label>complexity:</label>
+            <input type="number" id="complex" value="50" min="0" max="100" step="1" oninput="ezChange(event)" name="3">
+
+            <button onclick="cross()">Cross!</button>
+
+            <span class="stepFour">
+                <!-- empty output cross stitch preview -->
+                <canvas id="crossPrev" style="display: none;"></canvas>
+
+                <!-- empty output cross stitch preview -->
+                <canvas id="bigCrossPrev"></canvas>
+
+                <!-- copy button -->
+                <button onclick="justCopy()">Copy!</button>
+
+                <!-- table -->
+                <br><table id="colorList"></table>
+                <!-- list button -->
+                <button onclick="copyList()">List!</button>
+            </span>
+        </span>
+
+        <span id="pageThree">
+            <p>Eventually make Lego dots</p>
+            <p>still under progress</p>
+        </span>
+
+        <span id="pageFour">
             <!-- choose a file to open-->
             <input type="file" id="inFile" accept="image/png, image/jpeg" onchange="loadPreview()">
 
